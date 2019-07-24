@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`loader should inject packages json data 1`] = `
+exports[`loader should inject packages json data and update it when it changes 1`] = `
 "const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -48,7 +48,7 @@ export default packages;
 "
 `;
 
-exports[`loader should inject packages json data 2`] = `
+exports[`loader should inject packages json data and update it when it changes 2`] = `
 "const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -70,6 +70,176 @@ packages[\\"lodash.isarraylike\\"] = {
 }
 
 packages[\\"nanoid\\"] = { \\"name\\": \\"modified\\" }
+
+export default packages;
+"
+`;
+
+exports[`loader should not re-read the packages data if nothing changed 1`] = `
+"const packages = {};
+
+packages[\\"lodash.isarraylike\\"] = {
+  \\"name\\": \\"lodash.isarraylike\\",
+  \\"version\\": \\"4.2.0\\",
+  \\"description\\": \\"The lodash method \`_.isArrayLike\` exported as a module.\\",
+  \\"homepage\\": \\"https://lodash.com/\\",
+  \\"icon\\": \\"https://lodash.com/icon.svg\\",
+  \\"license\\": \\"MIT\\",
+  \\"keywords\\": \\"lodash-modularized, isarraylike\\",
+  \\"author\\": \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+  \\"contributors\\": [
+    \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+    \\"Blaine Bublitz <blaine.bublitz@gmail.com> (https://github.com/phated)\\",
+    \\"Mathias Bynens <mathias@qiwi.be> (https://mathiasbynens.be/)\\"
+  ],
+  \\"repository\\": \\"lodash/lodash\\",
+  \\"scripts\\": { \\"test\\": \\"echo \\\\\\"See https://travis-ci.org/lodash/lodash-cli for testing details.\\\\\\"\\" }
+}
+
+packages[\\"nanoid\\"] = {
+  \\"name\\": \\"nanoid\\",
+  \\"version\\": \\"2.0.3\\",
+  \\"description\\": \\"A tiny (141 bytes), secure URL-friendly unique string ID generator\\",
+  \\"keywords\\": [
+    \\"uuid\\",
+    \\"random\\",
+    \\"id\\",
+    \\"url\\"
+  ],
+  \\"author\\": \\"Andrey Sitnik <andrey@sitnik.ru>\\",
+  \\"license\\": \\"MIT\\",
+  \\"repository\\": \\"ai/nanoid\\",
+  \\"browser\\": {
+    \\"./index.js\\": \\"./index.browser.js\\",
+    \\"./random.js\\": \\"./random.browser.js\\",
+    \\"./async/index.js\\": \\"./async/index.browser.js\\",
+    \\"./async/random.js\\": \\"./async/random.browser.js\\"
+  },
+  \\"sideEffects\\": false
+}
+
+
+export default packages;
+"
+`;
+
+exports[`loader should not re-read the packages data if nothing changed 2`] = `
+"const packages = {};
+
+packages[\\"lodash.isarraylike\\"] = {
+  \\"name\\": \\"lodash.isarraylike\\",
+  \\"version\\": \\"4.2.0\\",
+  \\"description\\": \\"The lodash method \`_.isArrayLike\` exported as a module.\\",
+  \\"homepage\\": \\"https://lodash.com/\\",
+  \\"icon\\": \\"https://lodash.com/icon.svg\\",
+  \\"license\\": \\"MIT\\",
+  \\"keywords\\": \\"lodash-modularized, isarraylike\\",
+  \\"author\\": \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+  \\"contributors\\": [
+    \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+    \\"Blaine Bublitz <blaine.bublitz@gmail.com> (https://github.com/phated)\\",
+    \\"Mathias Bynens <mathias@qiwi.be> (https://mathiasbynens.be/)\\"
+  ],
+  \\"repository\\": \\"lodash/lodash\\",
+  \\"scripts\\": { \\"test\\": \\"echo \\\\\\"See https://travis-ci.org/lodash/lodash-cli for testing details.\\\\\\"\\" }
+}
+
+packages[\\"nanoid\\"] = {
+  \\"name\\": \\"nanoid\\",
+  \\"version\\": \\"2.0.3\\",
+  \\"description\\": \\"A tiny (141 bytes), secure URL-friendly unique string ID generator\\",
+  \\"keywords\\": [
+    \\"uuid\\",
+    \\"random\\",
+    \\"id\\",
+    \\"url\\"
+  ],
+  \\"author\\": \\"Andrey Sitnik <andrey@sitnik.ru>\\",
+  \\"license\\": \\"MIT\\",
+  \\"repository\\": \\"ai/nanoid\\",
+  \\"browser\\": {
+    \\"./index.js\\": \\"./index.browser.js\\",
+    \\"./random.js\\": \\"./random.browser.js\\",
+    \\"./async/index.js\\": \\"./async/index.browser.js\\",
+    \\"./async/random.js\\": \\"./async/random.browser.js\\"
+  },
+  \\"sideEffects\\": false
+}
+
+
+export default packages;
+"
+`;
+
+exports[`loader should update packages data when package.json changes 1`] = `
+"const packages = {};
+
+packages[\\"lodash.isarraylike\\"] = {
+  \\"name\\": \\"lodash.isarraylike\\",
+  \\"version\\": \\"4.2.0\\",
+  \\"description\\": \\"The lodash method \`_.isArrayLike\` exported as a module.\\",
+  \\"homepage\\": \\"https://lodash.com/\\",
+  \\"icon\\": \\"https://lodash.com/icon.svg\\",
+  \\"license\\": \\"MIT\\",
+  \\"keywords\\": \\"lodash-modularized, isarraylike\\",
+  \\"author\\": \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+  \\"contributors\\": [
+    \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+    \\"Blaine Bublitz <blaine.bublitz@gmail.com> (https://github.com/phated)\\",
+    \\"Mathias Bynens <mathias@qiwi.be> (https://mathiasbynens.be/)\\"
+  ],
+  \\"repository\\": \\"lodash/lodash\\",
+  \\"scripts\\": { \\"test\\": \\"echo \\\\\\"See https://travis-ci.org/lodash/lodash-cli for testing details.\\\\\\"\\" }
+}
+
+packages[\\"nanoid\\"] = {
+  \\"name\\": \\"nanoid\\",
+  \\"version\\": \\"2.0.3\\",
+  \\"description\\": \\"A tiny (141 bytes), secure URL-friendly unique string ID generator\\",
+  \\"keywords\\": [
+    \\"uuid\\",
+    \\"random\\",
+    \\"id\\",
+    \\"url\\"
+  ],
+  \\"author\\": \\"Andrey Sitnik <andrey@sitnik.ru>\\",
+  \\"license\\": \\"MIT\\",
+  \\"repository\\": \\"ai/nanoid\\",
+  \\"browser\\": {
+    \\"./index.js\\": \\"./index.browser.js\\",
+    \\"./random.js\\": \\"./random.browser.js\\",
+    \\"./async/index.js\\": \\"./async/index.browser.js\\",
+    \\"./async/random.js\\": \\"./async/random.browser.js\\"
+  },
+  \\"sideEffects\\": false
+}
+
+
+export default packages;
+"
+`;
+
+exports[`loader should update packages data when package.json changes 2`] = `
+"const packages = {};
+
+packages[\\"lodash.isarraylike\\"] = {
+  \\"name\\": \\"lodash.isarraylike\\",
+  \\"version\\": \\"4.2.0\\",
+  \\"description\\": \\"The lodash method \`_.isArrayLike\` exported as a module.\\",
+  \\"homepage\\": \\"https://lodash.com/\\",
+  \\"icon\\": \\"https://lodash.com/icon.svg\\",
+  \\"license\\": \\"MIT\\",
+  \\"keywords\\": \\"lodash-modularized, isarraylike\\",
+  \\"author\\": \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+  \\"contributors\\": [
+    \\"John-David Dalton <john.david.dalton@gmail.com> (http://allyoucanleet.com/)\\",
+    \\"Blaine Bublitz <blaine.bublitz@gmail.com> (https://github.com/phated)\\",
+    \\"Mathias Bynens <mathias@qiwi.be> (https://mathiasbynens.be/)\\"
+  ],
+  \\"repository\\": \\"lodash/lodash\\",
+  \\"scripts\\": { \\"test\\": \\"echo \\\\\\"See https://travis-ci.org/lodash/lodash-cli for testing details.\\\\\\"\\" }
+}
+
 
 export default packages;
 "
