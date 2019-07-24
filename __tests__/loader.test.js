@@ -11,53 +11,32 @@ describe("loader", () => {
     fs.removeSync(tempDirPath);
   });
 
-  it("should inject packages json data and update it when it changes", (done) => {
+  it("should inject packages json data and update it when it changes", async () => {
     const tempProjectDirPath = prepareFixtureProject('project1');
     const compiler = getCompiler(tempProjectDirPath);
-    let buildCount = 0;
 
-    const watching = compiler.watch({ aggregateTimeout: 0 }, (err, stats) => {
-      if (err) return done(err);
-      if (stats.hasErrors()) return done(new Error(stats.toJson().errors));
+    const output = await build(compiler);
+    expect(output).toMatchSnapshot();
 
-      buildCount++;
-      const output = stats.toJson().modules[0].source;
+    fs.writeFileSync(
+      path.join(tempProjectDirPath, "node_modules", "nanoid", "package.json"),
+      '{ "name": "modified" }'
+    );
 
-      expect(output).toMatchSnapshot();
-
-      if (buildCount === 1) {
-        fs.writeFileSync(
-          path.join(tempProjectDirPath, "node_modules", "nanoid", "package.json"),
-          '{ "name": "modified" }'
-        );
-      }
-
-      if (buildCount === 2) {
-        watching.close(() => {
-          done();
-        });
-      }
-    });
+    const output2 = await build(compiler);
+    expect(output2).toMatchSnapshot();
   });
 
-  it("should update packages data when package.json changes", (done) => {
+  it("should update packages data when package.json changes", async () => {
     const tempProjectDirPath = prepareFixtureProject('project1');
     const compiler = getCompiler(tempProjectDirPath);
-    let buildCount = 0;
 
-    const watching = compiler.watch({ aggregateTimeout: 0 }, (err, stats) => {
-      if (err) return done(err);
-      if (stats.hasErrors()) return done(new Error(stats.toJson().errors));
+    const output = await build(compiler);
+    expect(output).toMatchSnapshot();
 
-      buildCount++;
-      const output = stats.toJson().modules[0].source;
-
-      expect(output).toMatchSnapshot();
-
-      if (buildCount === 1) {
-        fs.writeFileSync(
-          path.join(tempProjectDirPath, "package.json"),
-          `
+    fs.writeFileSync(
+      path.join(tempProjectDirPath, "package.json"),
+      `
             {
               "name": "project1",
               "version": "1.0.0",
@@ -68,41 +47,21 @@ describe("loader", () => {
               }
             }
           `
-        );
-      }
+    );
 
-      if (buildCount === 2) {
-        watching.close(() => {
-          done();
-        });
-      }
-    });
+    const output2 = await build(compiler);
+    expect(output2).toMatchSnapshot();
   });
 
-  it("should not re-read the packages data if nothing changed", (done) => {
+  it("should not re-read the packages data if nothing changed", async () => {
     const tempProjectDirPath = prepareFixtureProject('project1');
     const compiler = getCompiler(tempProjectDirPath);
-    let buildCount = 0;
 
-    const watching = compiler.watch({ aggregateTimeout: 0 }, (err, stats) => {
-      if (err) return done(err);
-      if (stats.hasErrors()) return done(new Error(stats.toJson().errors));
+    const output = await build(compiler);
+    expect(output).toMatchSnapshot();
 
-      buildCount++;
-      const output = stats.toJson().modules[0].source;
-
-      expect(output).toMatchSnapshot();
-
-      if (buildCount === 1) {
-        watching.invalidate()
-      }
-
-      if (buildCount === 2) {
-        watching.close(() => {
-          done();
-        });
-      }
-    });
+    const output2 = await build(compiler);
+    expect(output2).toMatchSnapshot();
   });
 });
 
@@ -120,10 +79,14 @@ function prepareFixtureProject(projectName) {
 function getCompiler(projectDirPath) {
   const compiler = webpack({
     context: projectDirPath,
-    entry: "../../__fixtures__/module.js",
+    cache: false,
+    entry: "./index.js",
     output: {
       path: "/",
       filename: 'bundle.js',
+    },
+    optimization: {
+      minimize: false,
     },
     module: {
       rules: [{
@@ -138,4 +101,16 @@ function getCompiler(projectDirPath) {
   compiler.outputFileSystem = new memoryfs();
 
   return compiler;
+}
+
+function build(compiler) {
+  return new Promise((resolve, reject) => {
+    compiler.run((err, stats) => {
+      if (err) return reject(err);
+      if (stats.hasErrors()) return reject(new Error(stats.toJson().errors));
+
+      const output = compiler.outputFileSystem.readFileSync('/bundle.js', 'utf8');
+      resolve(output)
+    });
+  });
 }
