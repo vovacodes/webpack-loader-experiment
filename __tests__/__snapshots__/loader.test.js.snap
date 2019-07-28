@@ -91,16 +91,20 @@ exports[`loader should inject packages json data and update it when it changes 1
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -146,15 +150,56 @@ packages[\\"nanoid\\"] = {
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"},\\"devDependencies\\":{\\"nanoid\\":\\"^2.0.3\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"
@@ -251,16 +296,20 @@ exports[`loader should inject packages json data and update it when it changes 2
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -285,15 +334,56 @@ packages[\\"nanoid\\"] = { \\"name\\": \\"modified\\" }
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"},\\"devDependencies\\":{\\"nanoid\\":\\"^2.0.3\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"
@@ -390,16 +480,20 @@ exports[`loader should not re-read the packages data if nothing changed 1`] = `
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -445,15 +539,56 @@ packages[\\"nanoid\\"] = {
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"},\\"devDependencies\\":{\\"nanoid\\":\\"^2.0.3\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"
@@ -550,16 +685,20 @@ exports[`loader should not re-read the packages data if nothing changed 2`] = `
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -605,15 +744,56 @@ packages[\\"nanoid\\"] = {
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"},\\"devDependencies\\":{\\"nanoid\\":\\"^2.0.3\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"
@@ -710,16 +890,20 @@ exports[`loader should update packages data when package.json changes 1`] = `
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -765,15 +949,56 @@ packages[\\"nanoid\\"] = {
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"},\\"devDependencies\\":{\\"nanoid\\":\\"^2.0.3\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"
@@ -870,16 +1095,20 @@ exports[`loader should update packages data when package.json changes 2`] = `
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-const myModule = __webpack_require__(1);
+const packageJson = __webpack_require__(1);
 
-console.log(myModule);
+const packageInfo = {
+  packageJson,
+  sourceModules: {},
+  dependencies: {},
+}
 
+const ctx = __webpack_require__(2)
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+ctx.keys().forEach(key => {
+  packageInfo.sourceModules[key] = () => ctx(key)
+})
 
-const packageJson = __webpack_require__(2);
 const packages = {};
 
 packages[\\"lodash.isarraylike\\"] = {
@@ -903,15 +1132,56 @@ packages[\\"lodash.isarraylike\\"] = {
 
 module.exports = {
   packageJson,
-  packages
+  packages,
+  packageInfo,
 };
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module) {
 
 module.exports = {\\"name\\":\\"project1\\",\\"version\\":\\"1.0.0\\",\\"main\\":\\"index.js\\",\\"license\\":\\"MIT\\",\\"dependencies\\":{\\"lodash.isarraylike\\":\\"^4.2.0\\"}};
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	\\"./TestComponent.tsx\\": 3
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error(\\"Cannot find module '\\" + req + \\"'\\");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = 2;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+\\"use strict\\";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \\"TestComponent\\", function() { return TestComponent; });
+function TestComponent() {
+    return null
+}
+
 
 /***/ })
 /******/ ]);"

@@ -80,7 +80,7 @@ function getCompiler(projectDirPath) {
   const compiler = webpack({
     context: projectDirPath,
     cache: false,
-    entry: "./index.js",
+    entry: "./entry/module.js",
     output: {
       path: "/",
       filename: 'bundle.js',
