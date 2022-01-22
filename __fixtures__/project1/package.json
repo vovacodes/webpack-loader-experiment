@@ -7,6 +7,6 @@
     "lodash.isarraylike": "^4.2.0"
   },
   "devDependencies": {
-    "nanoid": "^2.0.3"
+    "nanoid": "^3.1.31"
   }
 }
